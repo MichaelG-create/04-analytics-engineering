@@ -1,0 +1,115 @@
+sources:
+  - name: raw
+    description: Raw taxi trip data from NYC TLC
+    database: dtc-de-course-484720 # Project ID
+    schema: ny_taxis_2019_2020 # Dataset name
+    config:
+      freshness:
+        warn_after: {count: 24, period: hour}
+        error_after: {count: 48, period: hour}
+    tables:
+      - name: green_tripdata
+        description: Raw green taxi trip records
+        config:
+          loaded_at_field: lpep_pickup_datetime
+        columns:
+          - name: vendorid
+            description: "Taxi technology provider (1 = Creative Mobile Technologies, 2 = VeriFone Inc.) - Note: Raw data may contain nulls, filtered in staging"
+          - name: lpep_pickup_datetime
+            description: Date and time when the meter was engaged
+          - name: lpep_dropoff_datetime
+            description: Date and time when the meter was disengaged
+          - name: passenger_count
+            description: Number of passengers in the vehicle
+          - name: trip_distance
+            description: Trip distance in miles
+          - name: pulocationid
+            description: TLC Taxi Zone where the meter was engaged
+          - name: dolocationid
+            description: TLC Taxi Zone where the meter was disengaged
+          - name: ratecodeid
+            description: Rate code (1=Standard, 2=JFK, 3=Newark, 4=Nassau/Westchester, 5=Negotiated, 6=Group)
+          - name: store_and_fwd_flag
+            description: Trip record held in vehicle memory (Y/N)
+          - name: payment_type
+            description: Payment method (1=Credit card, 2=Cash, 3=No charge, 4=Dispute, 5=Unknown, 6=Voided)
+          - name: fare_amount
+            description: Time and distance fare
+          - name: extra
+            description: Miscellaneous extras and surcharges
+          - name: mta_tax
+            description: MTA tax
+          - name: tip_amount
+            description: Tip amount (credit card only)
+          - name: tolls_amount
+            description: Total tolls paid
+          - name: improvement_surcharge
+            description: Improvement surcharge
+          - name: total_amount
+            description: Total amount charged
+          - name: trip_type
+            description: Trip type (1=Street-hail, 2=Dispatch)
+          - name: ehail_fee
+            description: E-hail fee
+
+      - name: yellow_tripdata
+        description: Raw yellow taxi trip records
+        config:
+          loaded_at_field: tpep_pickup_datetime
+        columns:
+          - name: vendorid
+            description: "Taxi technology provider (1 = Creative Mobile Technologies, 2 = VeriFone Inc.) - Note: Raw data may contain nulls, filtered in staging"
+          - name: tpep_pickup_datetime
+            description: Date and time when the meter was engaged
+          - name: tpep_dropoff_datetime
+            description: Date and time when the meter was disengaged
+          - name: passenger_count
+            description: Number of passengers in the vehicle
+          - name: trip_distance
+            description: Trip distance in miles
+          - name: pulocationid
+            description: TLC Taxi Zone where the meter was engaged
+          - name: dolocationid
+            description: TLC Taxi Zone where the meter was disengaged
+          - name: ratecodeid
+            description: Rate code (1=Standard, 2=JFK, 3=Newark, 4=Nassau/Westchester, 5=Negotiated, 6=Group)
+          - name: store_and_fwd_flag
+            description: Trip record held in vehicle memory (Y/N)
+          - name: payment_type
+            description: Payment method (1=Credit card, 2=Cash, 3=No charge, 4=Dispute, 5=Unknown, 6=Voided)
+          - name: fare_amount
+            description: Time and distance fare
+          - name: extra
+            description: Miscellaneous extras and surcharges
+          - name: mta_tax
+            description: MTA tax
+          - name: tip_amount
+            description: Tip amount (credit card only)
+          - name: tolls_amount
+            description: Total tolls paid
+          - name: improvement_surcharge
+            description: Improvement surcharge
+          - name: total_amount
+            description: Total amount charged
+
+      - name: fhv_tripdata
+        description: fhv trip records
+        config:
+          loaded_at_field: pickup_datetime
+        columns:
+          - name: dispatching_base_num
+            description: The TLC Base License Number of the base that dispatched the trip.
+          - name: pickup_datetime
+            description: Date and time of the trip pick-up.
+          - name: dropOff_datetime
+            description: Date and time of the trip dropoff.
+          - name: PUlocationID
+            description: TLC Taxi Zone in which the trip began.
+          - name: DOlocationID
+            description: TLC Taxi Zone in which the trip ended.
+          - name: SR_Flag
+            description: |
+              Indicates if the trip was a part of a shared ride chain offered by a High Volume FHV company (e.g. Uber Pool, Lyft Line). For shared trips, the value is 1. For non-shared rides, this field is null. NOTE: For most High Volume FHV companies, only shared rides that were requested AND matched to another shared-ride request over the course of the journey are flagged. However, Lyft (base license numbers B02510 + B02844) also flags rides for which a shared ride was requested but another passenger was not successfully matched to share the trip—therefore, trips records with SR_Flag=1 from those two bases could indicate EITHER a first trip in a shared trip chain OR a trip for which a shared ride was requested but never matched. Users should anticipate an overcount of successfully shared trips completed by Lyft.
+          - name: Affiliated_base_number
+            description: |
+              Base number of the base with which the vehicle is affiliated. This must be provided even if the affiliated base is the same as the dispatching base. 
