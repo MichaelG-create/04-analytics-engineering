@@ -27,16 +27,16 @@ models/
 
 If you run `dbt run --select int_trips_unioned`, what models will be built?
 
-- `stg_green_tripdata`, `stg_yellow_tripdata`, and `int_trips_unioned` (upstream dependencies)
-- Any model with upstream and downstream dependencies to `int_trips_unioned`
+- `stg_green_tripdata`, `stg_yellow_tripdata`, and `int_trips_unioned` (upstream dependencies) (would need a '+' before the int_trips_unioned ) (or rebuild if upstream model has changed (not mentionned in the question so assumed already build before and not modified))
+- Any model with upstream and downstream dependencies to `int_trips_unioned` (would need a '+' before and after the int_trips_unioned )
 - X `int_trips_unioned` only (as there's no '+' around the selected model and dbt build has been run before so previous models have already been built (so no need to rebuild them))
-- `int_trips_unioned`, `int_trips`, and `fct_trips` (downstream dependencies)
+- `int_trips_unioned`, `int_trips`, and `fct_trips` (downstream dependencies) (would need a '+' after the int_trips_unioned )
 
 ---
 
 ### Question 2. dbt Tests
 
-You've configured a generic test like this in your `schema.yml`: ?test for the fct_trips model?
+You've configured a generic test like this in your `schema.yml`: ?test for the fct_trips model or for models before?
 
 ```yaml
 columns:
@@ -52,8 +52,8 @@ Your model `fct_trips` has been running successfully for months. A new value `6`
 
 What happens when you run `dbt test --select fct_trips`?
 
-- ? dbt will skip the test because the model didn't change (DOES dbt test --select works as dbt run --select (for rebuild dependencies?))
-- ? dbt will fail the test, returning a non-zero exit code (whatever you do the build will bring in the new value and break the test)
+- dbt will skip the test because the model didn't change 
+- X dbt will fail the test, returning a non-zero exit code 
 - dbt will pass the test with a warning about the new value
 - dbt will update the configuration to include the new value
 
