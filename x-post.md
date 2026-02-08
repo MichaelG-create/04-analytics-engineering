@@ -13,4 +13,4 @@ Free course by @DataTalksClub: https://github.com/DataTalksClub/data-engineering
 
 
 post link:
-https://x.com/MichalG55278768/status/
+https://x.com/MichalG55278768/status/2020648392607871450?s=20
