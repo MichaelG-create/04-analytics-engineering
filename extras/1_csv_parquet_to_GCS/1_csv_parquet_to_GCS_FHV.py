@@ -10,7 +10,7 @@ import pyarrow.parquet as pq
 
 # 1) Load env
 load_dotenv()
-BUCKET = os.environ.get("GCP_GCS_BUCKET", "dtc-datalake-nyc-bucket")
+BUCKET = os.environ.get("GCP_GCS_BUCKET", "bucket_name")
 
 BASE_URL = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download"
 
