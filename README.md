@@ -45,6 +45,7 @@ columns:
       - accepted_values:
           arguments:
             values: [1, 2, 3, 4, 5]
+            quote: false
 ```
 
 Your model `fct_trips` has been running successfully for months. A new value `6` now appears in the source data.
@@ -142,7 +143,7 @@ FROM `dtc-de-course-484720.dbt_production.stg_fhv_tripdata`
 What is the count of records in `stg_fhv_tripdata`?
 
 - 42,084,899
-- X 43,244,696
+- X 43,244,693
 - 22,998,722
 - 44,112,187
 
