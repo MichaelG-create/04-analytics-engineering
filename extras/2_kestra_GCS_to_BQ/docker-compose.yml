@@ -52,7 +52,7 @@ services:
       - kestra_data:/app/storage
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/kestra-wd:/tmp/kestra-wd
-      - $HOME/keys/dtc-de-course-484720-aec683e64539_mod4_load_parquet_from_GCS_to_BQ_dataset.json:/secrets/adc.json:ro
+      - ${GCP_CREDENTIALS}:/secrets/adc.json:ro
     env_file:
       - .env
     environment:
